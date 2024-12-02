@@ -1,0 +1,12 @@
+---
+protocol: ws
+port: 32189
+external_address: /overseer
+control_list: null
+control_encryption:
+    encryption_var: CONTROL_ENCRYPTION_KEY
+dispatchers:
+    - protocol: ws
+      host: 127.0.0.1
+      port: 32190
+      resolve_addresses: false

@@ -1,0 +1,31 @@
+---
+protocol: ws
+port: 32190
+external_address: dispatcher
+control_encryption:
+    encryption_var: CONTROL_ENCRYPTION_KEY
+static_executor_config:
+    - protocol: ws
+      port: 32191
+      external_address: text-generation
+      queue_config:
+        task: text-generation
+        size: 5
+        result_duration: 3600
+        task_config:
+            options:
+                context_length: 32768
+    - protocol: ws
+      port: 32192
+      external_address: audio-transcription
+      queue_config:
+        task: audio-transcription
+        size: 5
+        result_duration: 3600
+    - protocol: ws
+      port: 32193
+      external_address: speech-synthesis
+      queue_config:
+        task: speech-synthesis
+        size: 5
+        result_duration: 180
