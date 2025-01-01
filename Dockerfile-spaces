@@ -30,9 +30,15 @@ RUN mkdir -p /app/logs
 # Expose port
 EXPOSE 7860
 
-# Install Packages
+# Install packages including spaces dev mode requirements
 RUN apt-get update && \
-    apt-get install -y python3-pip python3-dev nginx && \
+    apt-get install -y \
+    bash \
+    git git-lfs \
+    curl wget procps \
+    htop vim \
+    python3-pip python3-dev \
+    nginx && \
     rm -rf /var/lib/apt/lists/*
 
 # Adjust permissions
@@ -44,16 +50,12 @@ USER 1000
 # Install taproot
 RUN pip3 install --no-cache-dir taproot[tools,console,av]
 
-# Use taproot to install dependencies - we do this in steps to avoid any individual layer being too large
-# First install packages
-RUN taproot install audio-transcription:${TRANSCRIBE_MODEL} --no-files --debug
-RUN taproot install speech-synthesis:${SPEECH_MODEL} --no-files --optional --debug # Adds deepfilternet
-RUN taproot install text-generation:${TEXT_MODEL} --no-files --debug
-
-# Now download files
-RUN taproot install audio-transcription:${TRANSCRIBE_MODEL} --no-packages
-RUN taproot install text-generation:${TEXT_MODEL} --no-packages
-RUN taproot install speech-synthesis:${SPEECH_MODEL} --no-packages --optional
+# Install models - spaces doesn't seem to care about layer size, so we minimize overall size instead
+RUN taproot install \
+    audio-transcription:${TRANSCRIBE_MODEL} \
+    text-generation:${TEXT_MODEL} \
+    speech-synthesis:${SPEECH_MODEL} \
+    --optional
 
 # Copy run script
 COPY --chown=anachrovox --chmod=755 run.sh /app/run.sh
