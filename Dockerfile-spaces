@@ -56,7 +56,8 @@ RUN taproot install \
     audio-transcription:${TRANSCRIBE_MODEL} \
     text-generation:${TEXT_MODEL} \
     speech-synthesis:${SPEECH_MODEL} \
-    --optional
+    --optional \
+    --debug
 
 # Copy run script
 COPY --chown=anachrovox --chmod=755 run.sh /app/run.sh
