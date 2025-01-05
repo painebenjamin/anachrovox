@@ -162,7 +162,7 @@ const setVoiceIndex = (newIndex) => {
         voiceIndex = newIndex;
     }
 };
-setVoiceIndex(Math.round(Math.random() * voiceIds.length));
+setVoiceIndex(Math.floor(Math.random() * voiceIds.length));
 voiceIdWheel.addEventListener("click", () => {
     let newVoiceIndex = voiceIndex + parseInt(voiceIdWheel.value);
     if (newVoiceIndex < 0) newVoiceIndex = voiceIds.length - 1;
