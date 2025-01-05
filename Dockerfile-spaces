@@ -3,7 +3,7 @@ FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
 # Model choices
 ARG TEXT_MODEL=llama-v3-2-3b-instruct-q6-k
 ARG TRANSCRIBE_MODEL=distilled-whisper-large-v3
-ARG SPEECH_MODEL=xtts-v2
+ARG SPEECH_MODEL=kokoro
 
 # Create user
 RUN useradd -m -u 1000 anachrovox
@@ -38,6 +38,7 @@ RUN apt-get update && \
     curl wget procps \
     htop vim \
     python3-pip python3-dev \
+    espeak-ng \
     nginx && \
     rm -rf /var/lib/apt/lists/*
 
