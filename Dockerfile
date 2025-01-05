@@ -3,7 +3,7 @@ FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
 # Model choices
 ARG TEXT_MODEL=llama-v3-2-3b-instruct-q6-k
 ARG TRANSCRIBE_MODEL=distilled-whisper-large-v3
-ARG SPEECH_MODEL=xtts-v2
+ARG SPEECH_MODEL=kokoro
 
 # Create user
 RUN useradd -m -u 1000 anachrovox
@@ -31,9 +31,12 @@ RUN mkdir -p /app/logs
 EXPOSE 7860
 
 # Install Packages
-RUN apt-get update && \
-    apt-get install -y python3-pip python3-dev nginx && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    nginx \
+    espeak-ng \
+    && rm -rf /var/lib/apt/lists/*
 
 # Adjust permissions
 RUN chown -R 1000 /var/log/nginx /var/lib/nginx /app

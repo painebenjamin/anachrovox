@@ -152,7 +152,7 @@
             <button id="info-button">i</button>
             <div id="info-content">
                 <h1 id="info-logo">Anachrovox</h1>
-                <h2 id="info-version">Alpha Release v0.1.2</h2>
+                <h2 id="info-version">Alpha Release v0.1.3</h2>
                 <h3>Instructions</h3>
                 <p>To issue a voice command in a hands-free fashion, start your command with one of the supported wake phrases, then issue your command naturally (i.e. you do not need to pause.) There are many supported wake phrases but they all include 'Vox' - for example, 'Hey Vox', 'Hi Vox', or just 'Vox'.</p>
                 <p>There are numerous ways to shortcut the speech-to-speech workflow:</p>
@@ -176,7 +176,7 @@
                     <li>Wake-word detection using <a href="https://github.com/painebenjamin/hey-buddy" target="_blank">Hey Buddy</a></li>
                     <li>Speech-to-text using <a href="https://huggingface.co/distil-whisper/distil-large-v3" target="_blank">Distil-Whisper Large</a></li>
                     <li>Text generation using <a href="https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct" target="_blank">Llama 3.2 3B Instruct</a></li>
-                    <li>Text-to-speech using <a href="https://coqui.ai/blog/tts/open_xtts" target="_blank">XTTS2</a></li>
+                    <li>Text-to-speech using <a href="https://huggingface.co/hexgrad/Kokoro-82M" target="_blank">Kokoro</a></li>
                     <li>Audio enhancement using <a href="https://github.com/Rikorose/DeepFilterNet" target="_blank">DeepFilterNet</a></li>
                 </ol>
                 <p>All backend models are ran through Taproot, which is made to be as low-overhead as possible, allowing for real-time operation on consumer hardware. These are just a small selection of the supported model set, but were chosen for their balance of speed, size and capability. Visit <a href="https://github.com/painebenjamin/anachrovox" target="_blank">the Anachrovox GitHub</a> to see how to build with different supported components and/or visit <a href="https://github.com/painebenjamin/taproot" target="_blank">the Taproot GitHub</a> to request a new supported component or learn how to build your own (and hopefully contribute it back to the community!)</p>
@@ -206,11 +206,11 @@
     primaryClass  = {cs.AI},
     url           = {https://arxiv.org/abs/2407.21783}
 }</cite>
-                <cite>@misc{coqui2023xtts,
-    title         = {XTTS: Open Model Release Announcement}
-    author        = {Coqui AI}
-    year          = {2023}
-    url           = {https://coqui.ai/blog/tts/open_xtts}
+                <cite>@misc{kokoro82m,
+    title         = {Kokoro-82M}
+    author        = {@rzvzn}
+    year          = {2024}
+    url           = {https://huggingface.co/hexgrad/Kokoro-82M}
 }</cite>
                 <cite>@inproceedings{schroeter2023deepfilternet3,
     title         = {{DeepFilterNet}: Perceptually Motivated Real-Time Speech Enhancement},

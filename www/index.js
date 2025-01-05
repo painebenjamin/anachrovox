@@ -16,16 +16,14 @@ const [dpR, dpG, dpB] = [
 const pollingInterval = 150;
 const transcriptionParameters = {};
 const languageParameters = {
-    max_tokens: 512,
     role: "anachrovox",
     stream: true,
     use_tools: true,
+    max_tokens: 1024,
     return_tool_metadata: true,
 };
 const speechParameters = {
     enhance: true,
-    stream: false,
-    stream_chunk_size: 25,
     output_format: "float"
 };
 const waveformParameters = {
@@ -49,6 +47,7 @@ const speakerHoleRings = [ // radius, number of holes
 const maxTypingSpeed = 200; // characters per second
 const minTypingSpeed = 50;
 const maxDelay = 0.5; // max length to delay from completion to wait for speech to start generating
+
 let overseerAddress;
 
 if (window.location.port === "3000") {
@@ -140,66 +139,18 @@ const pushText = (text, className) => {
 };
 
 // Bind voice ID wheel to change voice ID
-// This is a localized list of voices from xtts2.
+// This is the list of voices from Kokoro
 const voiceMap = {
-    "Aaron": "Aaron Dreschner",
-    "Abraham": "Abrahan Mack",
-    "Adam": "Adde Michal",
-    "Alexis": "Alexandra Hisakawa",
-    "Alexis": "Alma María",
-    "Alison": "Alison Dietlinde",
-    "Amy": "Asya Anara",
-    "Andrew": "Andrew Chipper",
-    "Anna": "Ana Florence",
-    "Annie": "Annmarie Nele",
-    "Barbara": "Barbora MacLean",
-    "Blake": "Baldur Sanjin",
-    "Brenda": "Brenda Stern",
-    "Brian": "Badr Odhiambo",
-    "Carla": "Camilla Holmström",
-    "Cindy": "Chandra MacFarland",
-    "Clara": "Claribel Dervla",
-    "Clark": "Kumar Dahl",
-    "Craig": "Craig Gutsy",
-    "Daisy": "Daisy Studious",
-    "Damien": "Damien Black",
-    "David": "Dionisio Schuyler",
-    "Dennis": "Damjan Chapman",
-    "Ella": "Uta Obando",
-    "Eugene": "Eugenio Mataracı",
-    "Frank": "Ferran Simen",
-    "Gilbert": "Gilberto Mathias",
-    "Gina": "Gitta Nikolina",
-    "Grace": "Gracie Wise",
-    "Heidi": "Henriette Usha",
-    "Ian": "Ige Behringer",
-    "Ivan": "Ilkin Urbano",
-    "Kevin": "Kazuhiko Atallah",
-    "Lily": "Lilya Stainthorpe",
-    "Louis": "Luis Moray",
-    "Lucas": "Ludvig Milivoj",
-    "Lydia": "Lidiya Szekeres",
-    "Marcus": "Marcos Rudaski",
-    "Maya": "Maja Ruoho",
-    "Nadia": "Narelle Moon",
-    "Nora": "Nova Hogarth",
-    "Philip": "Filip Traverse",
-    "Raymond": "Royston Min",
-    "Rose": "Rosemary Okafor",
-    "Saul": "Suad Qasim",
-    "Sofia": "Sofia Hellen",
-    "Sophie": "Szofi Granger",
-    "Tammy": "Tammie Ema",
-    "Tanya": "Tanja Adelina",
-    "Tara": "Tammy Grit",
-    "Thomas": "Torcull Diarmuid",
-    "Victor": "Viktor Eka",
-    "Victor": "Viktor Menelaos",
-    "Violet": "Vjollca Johnnie",
-    "Warren": "Wulf Carlevaro",
-    "Xavier": "Xavier Hayasaka",
-    "Zachary": "Zacharie Aimilios",
-    "Zoe": "Zofija Kendrick",
+    "Adam": "male.en.us.adam",
+    "Bella": "female.en.us.bella",
+    "Emma": "female.en.gb.emma",
+    "George": "male.en.gb.george",
+    "Isabel": "female.en.gb.isabella",
+    "Lewis": "male.en.gb.lewis",
+    "Michael": "male.en.us.michael",
+    "Nicole": "female.en.us.nicole",
+    "Sarah": "female.en.us.sarah",
+    "Skye": "female.en.us.sky",
 };
 const voiceNames = Object.keys(voiceMap);
 const voiceIds = Object.values(voiceMap);
@@ -211,7 +162,7 @@ const setVoiceIndex = (newIndex) => {
         voiceIndex = newIndex;
     }
 };
-setVoiceIndex(0);
+setVoiceIndex(Math.round(Math.random() * voiceIds.length));
 voiceIdWheel.addEventListener("click", () => {
     let newVoiceIndex = voiceIndex + parseInt(voiceIdWheel.value);
     if (newVoiceIndex < 0) newVoiceIndex = voiceIds.length - 1;
@@ -245,7 +196,7 @@ const getSpeechParameters = (overrides = {}) => {
     return {
         ...speechParameters,
         speed: parseFloat(speed.value),
-        speaker_id: voiceMap[voiceId.value],
+        voice: voiceMap[voiceId.value],
         ...overrides,
     };
 };

@@ -1159,10 +1159,10 @@ div.slider {
 
 div.slider-element {
     position: absolute;
-    width: 100px;
-    left: calc(50% - 50px);
-    height: 20px;
-    margin-top: -10px;
+    width: 140px;
+    left: calc(50% - 70px);
+    height: 40px;
+    margin-top: -20px;
     perspective: 32px;
     cursor: grab;
     z-index: 2;
@@ -1173,17 +1173,17 @@ div.slider-element::after {
     content: "\A";
     display: block;
     position: absolute;
-    width: 50%;
-    height: 100%;
-    transform-origin: center;
+    width: 50px;
+    height: 40px;
+    transform-origin: center center;
     background-blend-mode: overlay, normal;
     box-shadow: 4px 4px 6px rgba(0,0,0,0.4),
                 10px 10px 14px rgba(0,0,0,0.2);
 }
 
 div.slider-element::before {
-    left: 1px;
-    transform: rotateY(-15deg);
+    left: 21px;
+    transform: rotateY(-15deg) scaleY(0.6);
     background-image: 
         linear-gradient(to right, #CCC, #888),
         url("static/black-plastic.jpg");
@@ -1192,8 +1192,8 @@ div.slider-element::before {
 }
 
 div.slider-element::after {
-    right: 1px;
-    transform: rotateY(15deg);
+    right: 21px;
+    transform: rotateY(15deg) scaleY(0.6);
     background-image: 
         linear-gradient(to right, #444, #333),
         url("static/black-plastic.jpg");
