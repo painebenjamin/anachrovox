@@ -7,10 +7,12 @@ export class SentenceChunker {
      * @param {Object} options
      * @param {number} options.chunkLength - The maximum length of a chunk (default: 96)
      * @param {boolean} options.emitParagraphs - Whether to emit paragraphs as chunks (default: true)
+     * @param {boolean} options.emitTrimmed - Whether to emit trimmed chunks (default: true)
      */
     constructor(options = {}) {
         this.buffer = "";
         this.chunkLength = options.chunkLength || 128;
+        this.emitTrimmed = options.emitTrimmed !== false;
         this.emitParagraphs = options.emitParagraphs !== false;
         this.callbacks = [];
     }
@@ -20,7 +22,9 @@ export class SentenceChunker {
      * @param {string} output - The chunk of text to emit
      */
     emit(output) {
-        output = output.trim();
+        if (this.emitTrimmed) {
+            output = output.trim();
+        }
         if (output.replace(/\W/g, "").length === 0) {
             return;
         }
