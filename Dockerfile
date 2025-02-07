@@ -45,7 +45,7 @@ RUN chown -R 1000 /var/log/nginx /var/lib/nginx /app
 USER 1000
 
 # Install taproot
-RUN pip3 install --no-cache-dir taproot[tools,console,av]
+RUN pip3 install --no-cache-dir taproot[tools,cli,av,uv]
 
 # Use taproot to install dependencies - we do this in steps to avoid any individual layer being too large
 # First install packages

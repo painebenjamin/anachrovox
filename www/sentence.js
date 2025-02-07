@@ -20,6 +20,10 @@ export class SentenceChunker {
      * @param {string} output - The chunk of text to emit
      */
     emit(output) {
+        output = output.trim();
+        if (output.replace(/\W/g, "").length === 0) {
+            return;
+        }
         this.callbacks.forEach(cb => cb(output));
     }
 
