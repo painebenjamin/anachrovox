@@ -5,7 +5,7 @@
 export class SentenceChunker {
     /**
      * @param {Object} options
-     * @param {number} options.chunkLength - The maximum length of a chunk (default: 96)
+     * @param {number} options.chunkLength - The maximum length of a chunk (default: 128)
      * @param {boolean} options.emitParagraphs - Whether to emit paragraphs as chunks (default: true)
      * @param {boolean} options.emitTrimmed - Whether to emit trimmed chunks (default: true)
      */
