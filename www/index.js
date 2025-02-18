@@ -121,7 +121,7 @@ for (let [radius, holes] of speakerHoleRings) {
 // Global objects
 const client = new Taproot(overseerAddress);
 const audio = new AudioPipeVisualizer({...waveformParameters, canvas: waveformCanvas});
-const chunker = new GrowingSentenceChunker();
+const chunker = new GrowingSentenceChunker({emitTrimmed: false});
 const conversationHistory = [];
 
 // Scroll to the bottom of the transcription section
