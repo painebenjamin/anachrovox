@@ -15,6 +15,7 @@ WORKDIR /app
 
 # Copy configuration
 COPY config/nginx.conf /app/nginx.conf
+COPY config/supervisord.conf /app/supervisord.conf
 COPY config/dispatcher.yaml /app/dispatcher.yaml
 COPY config/overseer.yaml /app/overseer.yaml
 
@@ -36,6 +37,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     nginx \
     espeak-ng \
+    supervisor \
     && rm -rf /var/lib/apt/lists/*
 
 # Adjust permissions
@@ -45,7 +47,7 @@ RUN chown -R 1000 /var/log/nginx /var/lib/nginx /app
 USER 1000
 
 # Install taproot
-RUN pip3 install --no-cache-dir taproot[tools,cli,av,uv]
+RUN pip3 install --no-cache-dir taproot[tools,cli,av,uv,ws]
 
 # Use taproot to install dependencies - we do this in steps to avoid any individual layer being too large
 # First install packages
@@ -58,8 +60,5 @@ RUN taproot install audio-transcription:${TRANSCRIBE_MODEL} --no-packages
 RUN taproot install text-generation:${TEXT_MODEL} --no-packages
 RUN taproot install speech-synthesis:${SPEECH_MODEL} --no-packages --optional
 
-# Copy run script
-COPY --chown=anachrovox --chmod=755 run.sh /app/run.sh
-
 # Run the application
-CMD ["/app/run.sh"]
+CMD ["supervisord", "-c", "/app/supervisord.conf"]

@@ -55,7 +55,11 @@ if (window.location.port === "3000") {
     overseerAddress = "ws://localhost:32189";
 } else {
     // Docker or production
-    overseerAddress = "overseer";
+    if (window.location.protocol === "https:") {
+        overseerAddress = `wss://${window.location.host}/overseer`;
+    } else {
+        overseerAddress = `ws://${window.location.host}/overseer`;
+    }
 }
 const sharedModelRoot = "https://huggingface.co/benjamin-paine/hey-buddy/resolve/main/pretrained";
 const wakeWordModelRoot = "https://huggingface.co/benjamin-paine/anachrovox/resolve/main";
