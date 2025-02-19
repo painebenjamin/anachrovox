@@ -58,13 +58,9 @@ To improve the usefulness of the assistant, the following tools are available to
 
 # Changing Models
 
-⚠️ This will not work yet! ⚠️
-
-*I still have to release a different package - I am working through one last bug with compatibility with HuggingFace and will release as soon as that is resolved. Until then, the build step will fail. I apologize for the inconvenience, in the meantime, you can still use the latest pre-build container from ghcr.io.*
-
 Selecting new models from the catalog of supported models is simple; clone this repository, modify the `TEXT_MODEL`, `TRANSCRIBE_MODEL` or `SPEECH_MODEL` variables in the Dockerfile, then build the image with `docker build`.
 
-To add a new supported model, you can either add the task to your environment and import it when running with `--add-import` like how this repository adds the anachrovox role to the dispatcher's environment. If your model may be useful for others, I encourage you to contribute it back to the Taproot repository.
+All models natively supported in Taproot are available - see [Taproot's Catalog](https://github.com/painebenjamin/taproot/wiki/Task-Catalog) for available options. To add a new supported model, you can either add the task to your environment and import it when running with `--add-import` - like how this repository adds the anachrovox role to the dispatcher's environment - or add one to the base Taproot repository and open a pull request to contribute it back to the main repository.
 
 # Citations
 
